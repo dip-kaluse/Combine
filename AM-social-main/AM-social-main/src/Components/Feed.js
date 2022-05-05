@@ -322,13 +322,20 @@ function Feed() {
             loader={
               <>
                 <Grid
-                  item
                   container
                   direction="row"
-                  justifyContent="flex-start"
-                  spacing={10}
+                  justifyContent="center"
+                  alignItems="center"
+                  spacing={12}
+                  style={{ marginTop: 20 }}
                 >
-                  <Grid item md={4}>
+                  <Grid
+                    container
+                    md={12}
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
                     <Box
                       sx={{
                         width: 300,
@@ -361,7 +368,13 @@ function Feed() {
                       <Skeleton animation="wave" height={10} width="80%" />
                     </Box>
                   </Grid>
-                  <Grid item md={4}>
+                  <Grid
+                    container
+                    md={12}
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
                     <Box
                       sx={{
                         width: 300,
@@ -391,10 +404,21 @@ function Feed() {
                         height={10}
                         style={{ marginBottom: 6 }}
                       />
-                      <Skeleton animation="wave" height={10} width="80%" />
+                      <Skeleton
+                        animation="wave"
+                        height={10}
+                        width="80%"
+                        style={{ marginBottom: 6 }}
+                      />
                     </Box>
                   </Grid>
-                  <Grid item md={4}>
+                  <Grid
+                    container
+                    md={12}
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
                     <Box
                       sx={{
                         width: 300,
@@ -418,6 +442,7 @@ function Feed() {
                         sx={{ height: 190 }}
                         animation="wave"
                         variant="rectangular"
+                        width="40%"
                       />
                       <Skeleton
                         animation="wave"
