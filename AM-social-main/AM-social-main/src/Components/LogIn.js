@@ -139,6 +139,7 @@ function LogIn() {
               size="small"
               onChange={(e) => setEmail(e.target.value)}
               id="email"
+              label="email"
               type="email"
               error={false}
               placeholder="Email Address"
@@ -158,6 +159,7 @@ function LogIn() {
               size="small"
               required
               name="password"
+              label="password"
               onChange={(e) => setPassword(e.target.value)}
               placeholder="password"
               type="password"

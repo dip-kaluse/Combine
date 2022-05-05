@@ -148,7 +148,7 @@ function SignUp() {
             id="fname"
             type="text"
             error={false}
-            placeholder="First Name"
+            label="First Name"
             name="fname"
             // autoComplete="fname"
             autoFocus
@@ -168,7 +168,7 @@ function SignUp() {
             id="lname"
             type="text"
             error={false}
-            placeholder="Last Name"
+            label="Last Name"
             name="lname"
             onChange={(e) => setLName(e.target.value)}
             // autoComplete="lname"
@@ -189,7 +189,7 @@ function SignUp() {
             id="email"
             type="email"
             error={false}
-            placeholder="Email Address"
+            label="Email Address"
             name="email"
             // autoComplete="email"
             sx={{ minWidth: "80%", textAlign: "center" }}
@@ -207,7 +207,7 @@ function SignUp() {
             size="small"
             required
             name="password"
-            placeholder="password"
+            label="password"
             type="password"
             id="password"
             // autoComplete="current-password"

@@ -166,6 +166,7 @@ function EditProfile() {
                 <Grid xs={6} md={8}>
                   <input
                     type="file"
+                    style={{ backgroundColor: "#e3f2fd" }}
                     onChange={(e) => {
                       setProfile(e.target.files[0].name);
                       let formData = new FormData();
@@ -211,7 +212,7 @@ function EditProfile() {
                     id="fname"
                     type="text"
                     error={false}
-                    placeholder="Name"
+                    label="Name"
                     name="fname"
                     value={name}
                     autoComplete="fname"
@@ -242,7 +243,7 @@ function EditProfile() {
                     minRows={4}
                     placeholder="Bio"
                     value={bio}
-                    style={{ width: "80%" }}
+                    style={{ width: "80%", backgroundColor: "#e3f2fd" }}
                     onChange={(e) => setBio(e.target.value)}
                   />
                 </Grid>
@@ -341,7 +342,7 @@ function EditProfile() {
                     id="email"
                     type="email"
                     value={email}
-                    placeholder="Email Address"
+                    label="Email Address"
                     name="email"
                     autoComplete="email"
                     sx={{ minWidth: "80%", textAlign: "center" }}

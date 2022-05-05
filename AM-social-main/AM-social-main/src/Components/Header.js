@@ -159,7 +159,13 @@ function Header() {
       </Snackbar>
 
       <AppBar position="static" style={{ minWidth: "172vh", marginLeft: -20 }}>
-        <Container maxWidth="xl" sx={{ bgcolor: "#000000" }}>
+        <Container
+          maxWidth="xl"
+          sx={{
+            backgroundColor: "#abe9cd",
+            backgroundImage: "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",
+          }}
+        >
           <Modal
             open={open1}
             onClose={handleClose1}
@@ -215,7 +221,7 @@ function Header() {
                       required
                       name="password"
                       onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Current Password"
+                      label="Current Password"
                       type="password"
                       // autoComplete="current-password"
                       error={false}
@@ -233,7 +239,7 @@ function Header() {
                       size="small"
                       required
                       onChange={(e) => setNewPass(e.target.value)}
-                      placeholder="New Password"
+                      label="New Password"
                       type="password"
                       // autoComplete="current-password"
                       error={false}
@@ -251,7 +257,7 @@ function Header() {
                       size="small"
                       required
                       onChange={(e) => setConfirm(e.target.value)}
-                      placeholder="Confirm Password"
+                      label="Confirm Password"
                       type="password"
                       // autoComplete="current-password"
                       error={false}
@@ -294,7 +300,13 @@ function Header() {
               variant="h5"
               noWrap
               component="div"
-              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+              sx={{
+                mr: 2,
+                display: {
+                  xs: "none",
+                  md: "flex",
+                },
+              }}
             >
               Welcome to AM Social..
             </Typography>

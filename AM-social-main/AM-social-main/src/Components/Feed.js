@@ -234,10 +234,10 @@ function Feed() {
               width: "100%",
               fontSize: 20,
               marginTop: 2,
+              backgroundColor: "#e0f7fa",
             }}
           >
             <div style={{}}>
-              {/* <Header /> */}
               <center>
                 <Grid
                   item
@@ -254,7 +254,7 @@ function Feed() {
                 >
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
-                      <h3 style={{ color: "#7e57c2" }}>Add Feeds Here</h3>
+                      <h3 style={{ color: "#880e4f" }}>Add Feeds Here</h3>
                     </Grid>
                     <Grid item xs={4}>
                       <TextField
@@ -446,153 +446,177 @@ function Feed() {
               {data &&
                 data.map((obj, index) => {
                   return (
-                    <Grid item md={4} key={obj._id}>
-                      <Card
-                        sx={{
-                          marginRight: "1%",
-                          marginTop: 3,
-                        }}
-                        key={index}
-                      >
-                        <CardHeader
-                          style={{ backgroundColor: "#e1bee7" }}
-                          avatar={data2.map((d) =>
-                            d._id === obj.userId && d.profile !== "" ? (
-                              <Avatar
-                                src={require(`../../../../Node/images/Profile/${d.profile}`)}
-                              />
-                            ) : d._id === obj.userId && d.profile === "" ? (
-                              <Avatar {...stringAvatar(obj.userfirstName)} />
-                            ) : (
-                              ""
-                            )
-                          )}
-                          title={<h3>{obj.userfirstName}</h3>}
-                        ></CardHeader>
-
-                        <CardContent>
-                          <img
-                            style={{ maxHeight: "30vh", height: "30vh" }}
-                            src={require(`../../../../Node/images/${obj.image}`)}
-                            alt="Trulli"
-                          />
-                          {/* <Typography gutterBottom variant="" component="div"> */}
-                          <h2>{obj.title}</h2>
-                          {/* </Typography> */}
-                        </CardContent>
-                        <CardActions>
-                          <IconButton
-                            aria-label="add to favorites"
-                            onClick={() => likes(obj)}
-                          >
-                            <FavoriteIcon
-                              color={
-                                obj.likes.includes(user._id) ? "primary" : ""
-                              }
-                            />
-                            <h6>{obj.likes.length}</h6>
-                          </IconButton>
-                          <ExpandMore
-                            expand={expanded && index === id}
-                            onClick={() => handleExpandClick(index)}
-                            aria-expanded={expanded}
-                            aria-label="show more"
-                          >
-                            <IconButton aria-label="add to favorites">
-                              <CommentIcon />
-                            </IconButton>
-                          </ExpandMore>
-                          <IconButton
-                            aria-label="add to favorites"
-                            style={{ marginLeft: -20 }}
-                          >
-                            <h6>{obj.comments.length}</h6>
-                          </IconButton>
-                        </CardActions>
-                        <Collapse
-                          in={expanded && index === id}
-                          timeout="auto"
-                          unmountOnExit
+                    <Grid item md={12} key={obj._id}>
+                      <center>
+                        <Card
+                          sx={{
+                            maxWidth: "60vh",
+                            marginRight: "1%",
+                            marginTop: 3,
+                          }}
+                          key={index}
                         >
+                          <CardHeader
+                            style={{
+                              backgroundColor: "#abe9cd",
+                              backgroundImage:
+                                "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",
+                            }}
+                            avatar={data2.map((d) =>
+                              d._id === obj.userId && d.profile !== "" ? (
+                                <Avatar
+                                  src={require(`../../../../Node/images/Profile/${d.profile}`)}
+                                />
+                              ) : d._id === obj.userId && d.profile === "" ? (
+                                <Avatar {...stringAvatar(obj.userfirstName)} />
+                              ) : (
+                                ""
+                              )
+                            )}
+                            title={
+                              <Typography
+                                variant="h5"
+                                color="#880e4f"
+                                sx={{ fontWeight: "bold" }}
+                                component="h4"
+                              >
+                                {obj.userfirstName}
+                              </Typography>
+                            }
+                          ></CardHeader>
+
                           <CardContent>
-                            <Typography paragraph>Comment:</Typography>
-                            <TextField
-                              required
-                              size="small"
-                              id="fname"
-                              type="text"
-                              error={false}
-                              placeholder="Comment"
-                              name="fname"
-                              value={comment}
-                              onChange={(e) => setComment(e.target.value)}
-                              autoComplete="fname"
-                              autoFocus
-                              sx={{ minWidth: "80%", textAlign: "center" }}
+                            <img
+                              style={{ maxHeight: "30vh", height: "30vh" }}
+                              src={require(`../../../../Node/images/${obj.image}`)}
+                              alt="Trulli"
                             />
+                            {/* <Typography gutterBottom variant="" component="div"> */}
+                            <h2>{obj.title}</h2>
+                            {/* </Typography> */}
+                          </CardContent>
+                          <CardActions>
                             <IconButton
                               aria-label="add to favorites"
-                              onClick={() => addComment(obj)}
+                              onClick={() => likes(obj)}
                             >
-                              <ArrowCircleRightIcon />
+                              <FavoriteIcon
+                                color={
+                                  obj.likes.includes(user._id)
+                                    ? "secondary"
+                                    : ""
+                                }
+                              />
+                              <h6>{obj.likes.length}</h6>
                             </IconButton>
-
-                            <Link onClick={() => setViewComments(true)}>
-                              View Comments
-                            </Link>
-
-                            <Collapse
-                              in={viewComments && index === id}
-                              timeout="auto"
-                              unmountOnExit
+                            <ExpandMore
+                              expand={expanded && index === id}
+                              onClick={() => handleExpandClick(index)}
+                              aria-expanded={expanded}
+                              aria-label="show more"
                             >
-                              {obj.comments.map((c, i) => (
-                                <List
-                                  sx={{
-                                    width: "100%",
-                                    maxWidth: 360,
-                                    bgcolor: "background.paper",
-                                  }}
-                                  key={c._id}
-                                >
-                                  <ListItem alignItems="flex-start">
-                                    <ListItemAvatar>
-                                      {data2.map(
-                                        (d) =>
-                                          d._id === c._id && (
-                                            <Avatar
-                                              {...stringAvatar(
-                                                d && d.firstName
-                                              )}
-                                            />
-                                          )
-                                      )}
-                                    </ListItemAvatar>
-                                    <ListItemText
-                                      primary={data2.map(
-                                        (d) => d._id === c._id && d.firstName
-                                      )}
-                                      secondary={
-                                        <React.Fragment>
-                                          <Typography
-                                            sx={{ display: "inline" }}
-                                            component="span"
-                                            variant="body2"
-                                            color="text.primary"
-                                          >
-                                            {c.comment}
-                                          </Typography>
-                                        </React.Fragment>
-                                      }
-                                    />
-                                  </ListItem>
-                                  <Divider variant="inset" component="li" />
-                                </List>
-                              ))}
-                            </Collapse>
-                          </CardContent>
-                        </Collapse>
-                      </Card>
+                              <IconButton aria-label="add to favorites">
+                                <CommentIcon />
+                              </IconButton>
+                            </ExpandMore>
+                            <IconButton
+                              aria-label="add to favorites"
+                              style={{ marginLeft: -20 }}
+                            >
+                              <h6>{obj.comments.length}</h6>
+                            </IconButton>
+                          </CardActions>
+                          <Collapse
+                            in={expanded && index === id}
+                            timeout="auto"
+                            unmountOnExit
+                          >
+                            <CardContent>
+                              <Typography paragraph>Comment:</Typography>
+                              <TextField
+                                required
+                                size="small"
+                                id="fname"
+                                type="text"
+                                error={false}
+                                placeholder="Comment"
+                                name="fname"
+                                value={comment}
+                                onChange={(e) => setComment(e.target.value)}
+                                autoComplete="fname"
+                                autoFocus
+                                sx={{ minWidth: "80%", textAlign: "center" }}
+                              />
+                              <IconButton
+                                aria-label="add to favorites"
+                                onClick={() => addComment(obj)}
+                              >
+                                <ArrowCircleRightIcon />
+                              </IconButton>
+
+                              <Link
+                                onClick={() =>
+                                  viewComments
+                                    ? setViewComments(false)
+                                    : setViewComments(true)
+                                }
+                              >
+                                <Button size="small">View Comment</Button>
+                              </Link>
+
+                              <Collapse
+                                in={viewComments && index === id}
+                                timeout="auto"
+                                unmountOnExit
+                              >
+                                {obj.comments.map((c, i) => (
+                                  <List
+                                    sx={{
+                                      width: "100%",
+                                      maxWidth: 360,
+                                      bgcolor: "background.paper",
+                                    }}
+                                    key={c._id}
+                                  >
+                                    <ListItem alignItems="flex-start">
+                                      <ListItemAvatar>
+                                        {data2.map(
+                                          (d) =>
+                                            d._id === c._id && (
+                                              <Avatar
+                                                {...stringAvatar(
+                                                  d && d.firstName
+                                                )}
+                                              />
+                                            )
+                                        )}
+                                      </ListItemAvatar>
+                                      <ListItemText
+                                        primary={data2.map(
+                                          (d) => d._id === c._id && d.firstName
+                                        )}
+                                        secondary={
+                                          <React.Fragment>
+                                            <Typography
+                                              sx={{ display: "inline" }}
+                                              component="span"
+                                              variant="body2"
+                                              color="text.primary"
+                                            >
+                                              {c.comment}
+                                            </Typography>
+                                          </React.Fragment>
+                                        }
+                                      />
+                                    </ListItem>
+                                    <Divider variant="inset" component="li" />
+                                  </List>
+                                ))}
+                              </Collapse>
+                            </CardContent>
+                          </Collapse>
+                        </Card>
+                      </center>
                     </Grid>
                   );
                 })}
