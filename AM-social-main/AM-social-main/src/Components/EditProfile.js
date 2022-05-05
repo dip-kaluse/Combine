@@ -369,10 +369,10 @@ function EditProfile() {
                   <PhoneTextField
                     size="small"
                     label="Phone number"
-                    error={Boolean(
-                      valuePhNO && phoneNumber?.country !== country
-                    )}
-                    value={valuePhNO}
+                    // error={Boolean(
+                    //   valuePhNO && phoneNumber?.country !== country
+                    // )}
+                    defaultValue={valuePhNO}
                     country={country}
                     onCountrySelect={onCountrySelect}
                     onChange={onChange}

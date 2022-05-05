@@ -254,7 +254,10 @@ function Feed() {
                 >
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
-                      <h3 style={{ color: "#880e4f" }}>Add Feeds Here</h3>
+                      <h2 style={{ color: "#880e4f" }}>Add Feeds </h2>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <hr style={{ color: "#880e4f" }}></hr>
                     </Grid>
                     <Grid item xs={4}>
                       <TextField
@@ -368,90 +371,6 @@ function Feed() {
                       <Skeleton animation="wave" height={10} width="80%" />
                     </Box>
                   </Grid>
-                  <Grid
-                    container
-                    md={12}
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center"
-                  >
-                    <Box
-                      sx={{
-                        width: 300,
-                        height: 300,
-                      }}
-                    >
-                      <Skeleton
-                        animation="wave"
-                        variant="circular"
-                        width={40}
-                        height={40}
-                      />
-                      <Skeleton
-                        animation="wave"
-                        height={10}
-                        width="80%"
-                        style={{ marginBottom: 6 }}
-                      />
-                      <Skeleton animation="wave" height={10} width="40%" />
-                      <Skeleton
-                        sx={{ height: 190 }}
-                        animation="wave"
-                        variant="rectangular"
-                      />
-                      <Skeleton
-                        animation="wave"
-                        height={10}
-                        style={{ marginBottom: 6 }}
-                      />
-                      <Skeleton
-                        animation="wave"
-                        height={10}
-                        width="80%"
-                        style={{ marginBottom: 6 }}
-                      />
-                    </Box>
-                  </Grid>
-                  <Grid
-                    container
-                    md={12}
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center"
-                  >
-                    <Box
-                      sx={{
-                        width: 300,
-                        height: 300,
-                      }}
-                    >
-                      <Skeleton
-                        animation="wave"
-                        variant="circular"
-                        width={40}
-                        height={40}
-                      />
-                      <Skeleton
-                        animation="wave"
-                        height={10}
-                        width="80%"
-                        style={{ marginBottom: 6 }}
-                      />
-                      <Skeleton animation="wave" height={10} width="40%" />
-                      <Skeleton
-                        sx={{ height: 190 }}
-                        animation="wave"
-                        variant="rectangular"
-                        width="40%"
-                      />
-                      <Skeleton
-                        animation="wave"
-                        height={10}
-                        style={{ marginBottom: 6 }}
-                      />
-                      <Skeleton animation="wave" height={10} width="80%" />
-                    </Box>
-                  </Grid>
                 </Grid>
               </>
             }
@@ -501,8 +420,8 @@ function Feed() {
                             title={
                               <Typography
                                 variant="h5"
-                                color="#880e4f"
-                                sx={{ fontWeight: "bold" }}
+                                color="white"
+                                sx={{ fontWeight: "bold", float: "left" }}
                                 component="h4"
                               >
                                 {obj.userfirstName}
@@ -520,7 +439,7 @@ function Feed() {
                             <h2>{obj.title}</h2>
                             {/* </Typography> */}
                           </CardContent>
-                          <CardActions>
+                          <CardActions style={{ backgroundColor: "#fff3e0" }}>
                             <IconButton
                               aria-label="add to favorites"
                               onClick={() => likes(obj)}
