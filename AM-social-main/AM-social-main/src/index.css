@@ -6,6 +6,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #e3f2fd;
+
+  /* background-image: url(./honeycomb-gae4000ad5_1280.png); */
 }
 
 code {

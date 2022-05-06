@@ -13,6 +13,7 @@ import Header from "./Components/Header";
 import AddFeed from "./Components/AddFeed";
 import EditProfile from "./Components/EditProfile";
 import ChangePassword from "./Components/ChangePassword";
+import EditProfile2 from "./Components/EditProfile2";
 
 function App() {
   return (
@@ -22,9 +23,9 @@ function App() {
           <Route path="/login" element={<LogIn />} />
           <Route path="/" element={<Feed />} />
           <Route path="/signup" element={<SignUp />} />
-          {/* <Route path="/AddFeed" element={<AddFeed />} /> */}
+          <Route path="/editprofile" element={<EditProfile2 />} />
           <Route path="/Change" element={<ChangePassword />} />
-          <Route path="/editprofile" element={<EditProfile />} />
+          {/* <Route path="/editprofile" element={<EditProfile />} /> */}
         </Routes>
       </BrowserRouter>
     </>

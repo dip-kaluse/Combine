@@ -65,34 +65,38 @@ function EditProfile() {
       d.email === user.email ? "" : d.email === email ? (flag = true) : ""
     );
     if (flag === false && email !== "") {
-      let obj = {
-        name: name,
-        bio: bio,
-        gender: gender,
-        DOB: valueDate,
-        email: email,
-        contact: valuePhNO,
-        profile: profile,
-      };
-      axios
-        .put(`http://localhost:3000/EditProfile/${user._id}`, obj)
-        .then((res) => console.log(res));
-      user.name = name;
-      user.bio = bio;
-      user.gender = gender;
-      user.DOB = valueDate;
-      user.email = email;
-      user.contact = valuePhNO;
-      user.profile = profile;
-      localStorage.setItem("user", JSON.stringify(user));
-      setStatus("succes");
-      setMassage("Profile Updated Successfully");
-      setOpen(true);
-      setTimeout(() => {
-        navigate("/");
-      }, 1000);
-
-      console.log(obj);
+      if (valuePhNO.length === 11 || valuePhNO.length === 0) {
+        let obj = {
+          name: name,
+          bio: bio,
+          gender: gender,
+          DOB: valueDate,
+          email: email,
+          contact: valuePhNO,
+          profile: profile,
+        };
+        axios
+          .put(`http://localhost:3000/EditProfile/${user._id}`, obj)
+          .then((res) => console.log(res));
+        user.name = name;
+        user.bio = bio;
+        user.gender = gender;
+        user.DOB = valueDate;
+        user.email = email;
+        user.contact = valuePhNO;
+        user.profile = profile;
+        localStorage.setItem("user", JSON.stringify(user));
+        setStatus("succes");
+        setMassage("Profile Updated Successfully");
+        setOpen(true);
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      } else {
+        setStatus("error");
+        setMassage("Phone Number is not valid");
+        setOpen(true);
+      }
     } else {
       setStatus("error");
       setMassage("Email is already registered or Email is Required");
@@ -369,9 +373,11 @@ function EditProfile() {
                   <PhoneTextField
                     size="small"
                     label="Phone number"
-                    // error={Boolean(
-                    //   valuePhNO && phoneNumber?.country !== country
-                    // )}
+                    error={Boolean(
+                      valuePhNO.length == !11 &&
+                        valuePhNO &&
+                        phoneNumber?.country !== country
+                    )}
                     defaultValue={valuePhNO}
                     country={country}
                     onCountrySelect={onCountrySelect}
