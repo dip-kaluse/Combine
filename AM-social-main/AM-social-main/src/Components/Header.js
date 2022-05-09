@@ -158,7 +158,7 @@ function Header() {
         </Alert>
       </Snackbar>
 
-      <AppBar position="static" style={{ minWidth: "172vh", marginLeft: -20 }}>
+      <AppBar position="static">
         <Container
           maxWidth="xl"
           sx={{

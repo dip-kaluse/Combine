@@ -14,6 +14,7 @@ import {
   TextareaAutosize,
   Snackbar,
   Avatar,
+  InputLabel,
 } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 import PhoneTextField from "mui-phone-textfield";
@@ -34,8 +35,8 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 function EditProfile2() {
   const imageRef = useRef();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-  const [valueDate, setValueDate] = React.useState(user.DOB);
-  const [valuePhNO, setValuePhNo] = useState(user.contact); // The input value.
+  const [valueDate, setValueDate] = React.useState(user.DOB || null);
+  const [valuePhNO, setValuePhNo] = useState(user.contact || ""); // The input value.
   const [country, setCountry] = useState("IN"); // The selected country.
   const [phoneNumber, setPhoneNumber] = useState(user.contact); // The PhoneNumber instance.
   const [name, setName] = useState(user.name);
@@ -68,7 +69,11 @@ function EditProfile2() {
       d.email === user.email ? "" : d.email === email ? (flag = true) : ""
     );
     if (flag === false && email !== "") {
-      if (valuePhNO.length === 11 || valuePhNO.length === 0) {
+      if (
+        valuePhNO.length === 11 ||
+        valuePhNO.length === 0 ||
+        valuePhNO === ""
+      ) {
         let obj = {
           name: name,
           bio: bio,
@@ -138,6 +143,7 @@ function EditProfile2() {
       children: `${name.split("")[0]}${name.split("")[1]}`,
     };
   }
+  // console.log(valuePhNO);
   return (
     <>
       {user && (
@@ -165,9 +171,11 @@ function EditProfile2() {
               xs={12}
               style={{
                 marginTop: "2vh",
+                marginLeft: "2%",
                 border: "1px solid",
                 borderColor: "#9c27b0",
                 padding: "3vh",
+                maxWidth: "95%",
               }}
             >
               <Grid
@@ -303,6 +311,7 @@ function EditProfile2() {
                     size="small"
                     label="Phone number"
                     defaultValue={valuePhNO}
+                    error={valuePhNO > 11}
                     country={country}
                     onCountrySelect={onCountrySelect}
                     onChange={onChange}
@@ -324,31 +333,18 @@ function EditProfile2() {
                   justifyContent="flex-start"
                   alignItems="flex-start"
                 >
-                  {" "}
-                  <Grid
+                  <fieldset className="scheduler-border">
+                    {" "}
+                    <legend className="scheduler-border">
+                      <InputLabel htmlFor="my-input">Gender</InputLabel>
+                    </legend>
+                    {/* <Grid
                     xs={6}
                     container
                     direction="column"
-                    justifyContent="center"
+                    justifyContent="flex "
                     alignItems="flex-start"
-                    style={{ marginTop: "4vh" }}
-                  >
-                    <Typography
-                      sx={{ ml: 10 }}
-                      gutterBottom
-                      variant="h6"
-                      component="div"
-                    >
-                      Gender
-                    </Typography>
-                  </Grid>
-                  <Grid
-                    xs={6}
-                    container
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="flex-start"
-                  >
+                  > */}
                     <FormControl>
                       <RadioGroup
                         aria-labelledby="demo-controlled-radio-buttons-group"
@@ -356,6 +352,7 @@ function EditProfile2() {
                         // value={value}
                         onChange={(e) => setGender(e.target.value)}
                         defaultValue={user.gender}
+                        row
                       >
                         <FormControlLabel
                           value="female"
@@ -369,7 +366,8 @@ function EditProfile2() {
                         />
                       </RadioGroup>
                     </FormControl>
-                  </Grid>
+                    {/* </Grid> */}
+                  </fieldset>
                 </Grid>
                 <Grid xs={4}>
                   <TextareaAutosize

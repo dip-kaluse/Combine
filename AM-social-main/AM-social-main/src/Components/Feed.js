@@ -230,12 +230,12 @@ function Feed() {
           </Snackbar>
           <Header />
           <Card
+            position="static"
             sx={{
-              marginRight: "1%",
-              width: "100%",
+              marginLeft: "2%",
+              width: "96%",
               fontSize: 20,
               marginTop: 2,
-
               backgroundColor: "#e0f7fa",
             }}
           >
@@ -441,6 +441,7 @@ function Feed() {
                         <Card
                           sx={{
                             maxWidth: "60vh",
+                            minWidth: "30%",
                             marginRight: "1%",
                             marginTop: 3,
                           }}
