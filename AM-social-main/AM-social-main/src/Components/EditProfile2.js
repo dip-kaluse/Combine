@@ -17,6 +17,7 @@ import {
   InputLabel,
 } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import PhoneTextField from "mui-phone-textfield";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import Header from "./Header";
@@ -62,7 +63,9 @@ function EditProfile2() {
   React.useEffect(() => {
     axios.get("http://localhost:3000/users").then((res) => setUsers(res.data));
   }, []);
-
+  const handleCancel = () => {
+    navigate("/");
+  };
   const handle = async () => {
     let flag = false;
     users.map((d) =>
@@ -143,7 +146,7 @@ function EditProfile2() {
       children: `${name.split("")[0]}${name.split("")[1]}`,
     };
   }
-  // console.log(valuePhNO);
+  // console.log(profile);
   return (
     <>
       {user && (
@@ -165,7 +168,7 @@ function EditProfile2() {
               justifyContent="flex-start"
               alignItems="flex-start"
             >
-              <Header></Header>
+              <Header profileUpdated={profile}></Header>
             </Grid>
             <Grid
               xs={12}
@@ -189,7 +192,8 @@ function EditProfile2() {
                 {profile !== "" ? (
                   <ClearIcon
                     onClick={() => {
-                      imageRef.current.value = null;
+                      user.profile = "";
+                      localStorage.setItem("user", JSON.stringify(user));
                       setProfile("");
                     }}
                   />
@@ -199,38 +203,69 @@ function EditProfile2() {
                 {profile === "" ? (
                   <Avatar
                     {...stringAvatar(user.firstName)}
-                    sx={{ width: 150, height: 150, fontSize: "500%" }}
+                    sx={{
+                      width: 150,
+                      height: 150,
+                      fontSize: "500%",
+                      backgroundColor: stringToColor(user.firstName),
+                    }}
                   />
                 ) : (
                   <Avatar
                     alt={name}
-                    src={require(`../../../../Node/images/${profile}`)}
+                    src={require(`../../../../Node/images/Profile/${profile}`)}
                     sx={{ width: 150, height: 150 }}
                   />
                 )}
                 <Grid
                   xs={6}
-                  md={4}
+                  md={1}
                   container
                   direction="column"
                   justifyContent="flex-start"
-                  alignItems="flex-end"
+                  alignItems="center"
                   style={{ marginTop: "2vh" }}
                 >
                   {" "}
-                  <input
-                    ref={imageRef}
-                    type="file"
-                    style={{ backgroundColor: "#e3f2fd" }}
-                    onChange={(e) => {
-                      setProfile(e.target.files[0].name);
-                      let formData = new FormData();
-                      formData.append("image", e.target.files[0]);
-                      axios
-                        .post("http://localhost:3000/Profileupload", formData)
-                        .then((res) => console.log(res));
-                    }}
-                  />
+                  <Button
+                    component="label"
+                    className="image"
+                    style={{ marginLeft: "0px" }}
+                  >
+                    <CameraAltIcon style={{ marginLeft: "0px" }} />
+                    <input
+                      type="file"
+                      hidden
+                      onChange={(e) => {
+                        setProfile(e.target.files[0].name);
+                        let formData = new FormData();
+                        formData.append("image", e.target.files[0]);
+                        console.log(formData);
+                        axios
+                          .post("http://localhost:3000/Profileupload", formData)
+                          .then((res) => console.log(res));
+                        user.name = name;
+                        user.bio = bio;
+                        user.gender = gender;
+                        user.DOB = valueDate;
+                        user.email = email;
+                        user.contact = valuePhNO;
+                        user.profile = e.target.files[0].name;
+                        axios
+                          .put(
+                            `http://localhost:3000/EditProfile/${user._id}`,
+                            user
+                          )
+                          .then((res) => console.log(res));
+                        localStorage.setItem("user", JSON.stringify(user));
+                        setTimeout(() => {
+                          setStatus("success");
+                          setMassage("Profile Picture updated successfully!!!");
+                          setOpen(true);
+                        }, 1000);
+                      }}
+                    />
+                  </Button>
                 </Grid>
               </Grid>
               <Grid
@@ -333,18 +368,30 @@ function EditProfile2() {
                   justifyContent="flex-start"
                   alignItems="flex-start"
                 >
-                  <fieldset className="scheduler-border">
-                    {" "}
-                    <legend className="scheduler-border">
-                      <InputLabel htmlFor="my-input">Gender</InputLabel>
-                    </legend>
-                    {/* <Grid
+                  <Grid
                     xs={6}
                     container
                     direction="column"
-                    justifyContent="flex "
+                    justifyContent="center"
                     alignItems="flex-start"
-                  > */}
+                    style={{ marginTop: "4vh" }}
+                  >
+                    <Typography
+                      sx={{ ml: 10 }}
+                      gutterBottom
+                      variant="h6"
+                      component="div"
+                    >
+                      Gender
+                    </Typography>
+                  </Grid>
+                  <Grid
+                    xs={6}
+                    container
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="flex-start"
+                  >
                     <FormControl>
                       <RadioGroup
                         aria-labelledby="demo-controlled-radio-buttons-group"
@@ -352,7 +399,6 @@ function EditProfile2() {
                         // value={value}
                         onChange={(e) => setGender(e.target.value)}
                         defaultValue={user.gender}
-                        row
                       >
                         <FormControlLabel
                           value="female"
@@ -366,16 +412,16 @@ function EditProfile2() {
                         />
                       </RadioGroup>
                     </FormControl>
-                    {/* </Grid> */}
-                  </fieldset>
+                  </Grid>
                 </Grid>
                 <Grid xs={4}>
                   <TextareaAutosize
                     aria-label="minimum height"
                     minRows={4}
+                    variant="outlined"
                     placeholder="Bio"
                     value={bio}
-                    style={{ width: "80%", backgroundColor: "#e3f2fd" }}
+                    style={{ width: "80%", backgroundColor: "transparent" }}
                     onChange={(e) => setBio(e.target.value)}
                   />
                 </Grid>
@@ -416,7 +462,7 @@ function EditProfile2() {
                   <Button
                     type="submit"
                     color="error"
-                    onClick={() => navigate("/")}
+                    onClick={() => handleCancel()}
                     variant="contained"
                     sx={{ maxWidth: "50%", maxHeight: "50%" }}
                   >

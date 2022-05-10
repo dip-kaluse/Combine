@@ -27,7 +27,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 const settings = ["Change Password", "Edit Profile", "Logout"];
-function Header() {
+function Header(props) {
   let navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -36,9 +36,11 @@ function Header() {
       JSON.parse(localStorage.getItem("user"))) ||
       ""
   );
+
   const [open, setOpen] = React.useState(false);
   const [message, setMassage] = useState("");
   const [status, setStatus] = useState("");
+  const [updatedProfile, setUpdatedProfile] = useState(props.profileUpdated);
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -47,13 +49,12 @@ function Header() {
   };
 
   const handleCloseNavMenu = () => {
-    console.log("first");
     setAnchorElNav(null);
   };
   const [password, setPassword] = useState("");
   const [newPass, setNewPass] = useState("");
   const [confirm, setConfirm] = useState("");
-
+  const [profile, setProfile] = useState(user.profile || "");
   useEffect(() => {
     if (
       localStorage.getItem("user") === null &&
@@ -62,7 +63,11 @@ function Header() {
       navigate("/login");
     }
   }, []);
-
+  useEffect(() => {
+    setUpdatedProfile(props.profileUpdated);
+    setUser(JSON.parse(localStorage.getItem("user") || ""));
+    setProfile(user.profile || "");
+  }, [props]);
   const handle = async () => {
     if (newPass === confirm) {
       if (user.password === password) {
@@ -370,11 +375,13 @@ function Header() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  {user && user.profile === "" ? (
+                  {user.profile == "" ? (
                     <Avatar {...stringAvatar(user.firstName)} />
                   ) : (
                     <Avatar
-                      src={require(`../../../../Node/images/Profile/${user.profile}`)}
+                      src={require(`../../../../Node/images/Profile/${
+                        updatedProfile ? updatedProfile : user.profile
+                      }`)}
                     />
                   )}
                   &nbsp;<h4 style={{ color: "white" }}>{user.firstName}</h4>

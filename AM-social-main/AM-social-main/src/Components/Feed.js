@@ -60,6 +60,7 @@ function Feed() {
     JSON.parse(localStorage.getItem("user")) &&
       JSON.parse(localStorage.getItem("user"))
   );
+  const [commentObj, setCommentObject] = useState();
   const [open, setOpen] = React.useState(false);
   const [message, setMassage] = useState("");
   const [status, setStatus] = useState("");
@@ -67,6 +68,7 @@ function Feed() {
   const [data2, setData2] = useState([]);
   const [limit, setlimit] = useState(3);
   const handleExpandClick = (i) => {
+    setComment("");
     setExpanded(!expanded);
     setId(i);
   };
@@ -144,7 +146,6 @@ function Feed() {
         },
       })
       .then((res) => {
-        console.log(res);
         setData(res.data.results);
       })
       .catch((err) => {
@@ -383,12 +384,12 @@ function Feed() {
                     md={12}
                     direction="row"
                     justifyContent="center"
-                    alignItems="center"
+                    alignItems="flex-end"
                   >
                     <Box
                       sx={{
-                        width: 300,
-                        height: 300,
+                        width: "35%",
+                        height: "70vh",
                       }}
                     >
                       <Skeleton
@@ -440,10 +441,11 @@ function Feed() {
                       <center>
                         <Card
                           sx={{
-                            maxWidth: "60vh",
-                            minWidth: "30%",
+                            maxWidth: "50vh",
+                            minWidth: "50%",
                             marginRight: "1%",
                             marginTop: 3,
+                            boxShadow: 5,
                           }}
                           key={index}
                         >
@@ -483,10 +485,16 @@ function Feed() {
                               alt="Trulli"
                             />
                             {/* <Typography gutterBottom variant="" component="div"> */}
-                            <h2>{obj.title}</h2>
+                            <h3>{obj.title}</h3>
                             {/* </Typography> */}
                           </CardContent>
-                          <CardActions style={{ backgroundColor: "#fff3e0" }}>
+                          <CardActions
+                            style={{
+                              backgroundColor: "#fff3e0",
+                              maxHeight: "10vh",
+                              padding: 0,
+                            }}
+                          >
                             <IconButton
                               aria-label="add to favorites"
                               onClick={() => likes(obj)}
